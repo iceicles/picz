@@ -4,11 +4,16 @@ const express = require('express');
 
 const app = express();
 
+const fileUpload = require('express-fileupload');
+
 // database
 const connectDB = require('./db/connect');
 
 // parsing json from req.body
 app.use(express.json());
+
+// for uploading files to server then later cloud (cloudinary)
+app.use(fileUpload());
 
 // album router
 const albumRouter = require('./routes/albumRoutes');
