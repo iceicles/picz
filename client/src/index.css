@@ -3,9 +3,12 @@
 @tailwind utilities;
 
 :root {
-  --background-color: #242424;
+  --root-background-color: #000000;
   --black: #000000;
+  --image-container-bg-color: #140122;
+  --image-container-boxshadow-color: #130122;
   --lightblue: #3f87f4;
+  --form-background-color: #043251;
 
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -13,7 +16,7 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: var(--background-color);
+  background-color: var(--root-background-color);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -27,19 +30,14 @@ body {
   justify-items: center; */
 }
 
-/* form {
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-} */
-
 .imageContainer {
-  background-color: var(--black);
+  background-color: var(--image-container-bg-color);
   border-radius: 5px;
+  box-shadow: 0 0 50px 10px var(--image-container-boxshadow-color);
 }
 
 form {
-  background-color: rgb(4, 50, 81);
+  background-color: var(--form-background-color);
   box-shadow: 10px 10px 5px var(--lightblue);
   padding: 1rem;
   border-radius: 1rem;
@@ -57,4 +55,5 @@ input[type='submit'] {
   width: 50%;
   font-size: 1rem;
   font-weight: 700;
+  cursor: pointer;
 }

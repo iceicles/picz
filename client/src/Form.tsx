@@ -21,7 +21,9 @@ export const Form = () => {
             <input type='text' name='title' />
           </label>
           <label htmlFor='image'>
-            Upload an image with size less than 1MB
+            <i className='text-red-400'>
+              *Upload an image with size less than 1MB
+            </i>
             <input type='file' name='image' />
           </label>
           <label>
