@@ -9,6 +9,13 @@ const fileUpload = require('express-fileupload');
 // database
 const connectDB = require('./db/connect');
 
+const cors = require('cors');
+const corsOptions = {
+  origin: 'http://localhost:5173', // frontend url
+};
+// cors
+app.use(cors(corsOptions));
+
 // parsing json from req.body
 app.use(express.json());
 
