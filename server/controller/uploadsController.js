@@ -12,8 +12,6 @@ const uploadAlbumImageLocal = async (req, res) => {
 
   const productImage = req.files.image;
 
-  console.log('productImage - ', productImage);
-
   // check format
   if (!productImage.mimetype.startsWith('image')) {
     throw new CustomError.BadRequestError('Please Upload an Image');
