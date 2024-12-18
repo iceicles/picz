@@ -1,3 +1,4 @@
+require('express-async-errors');
 require('dotenv').config();
 
 const express = require('express');
@@ -26,9 +27,17 @@ app.use(fileUpload());
 const albumRouter = require('./routes/albumRoutes');
 app.use('/api/v1/albums', albumRouter);
 
+// error handlers
+const notFoundMiddleware = require('./middleware/not-found');
+const errorHandlerMiddleware = require('./middleware/error-handler');
+
 app.get('/', (req, res) => {
   res.send('<h1>Picz server</h1>');
 });
+
+// middleware
+app.use(notFoundMiddleware);
+app.use(errorHandlerMiddleware);
 
 const port = process.env.PORT || 4000;
 
