@@ -20,6 +20,9 @@ app.use(cors(corsOptions));
 // parsing json from req.body
 app.use(express.json());
 
+// access static assets
+app.use(express.static('./public'));
+
 // for uploading files to server then later cloud (cloudinary)
 app.use(fileUpload());
 
