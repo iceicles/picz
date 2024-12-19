@@ -34,6 +34,11 @@ body {
   background-color: var(--image-container-bg-color);
   border-radius: 5px;
   box-shadow: 0 0 50px 10px var(--image-container-boxshadow-color);
+  padding: 30px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 30px;
+  overflow-y: scroll;
 }
 
 form {
@@ -56,4 +61,13 @@ input[type='submit'] {
   font-size: 1rem;
   font-weight: 700;
   cursor: pointer;
+}
+
+/* div>img {
+  display: grid;
+} */
+
+img {
+  border-radius: 5px;
+  aspect-ratio: 16/9 auto;
 }
