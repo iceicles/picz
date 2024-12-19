@@ -6,7 +6,7 @@ const createAlbum = async (req, res) => {
 };
 
 const getAllAlbums = async (req, res) => {
-  const albums = await Album.find({});
+  const albums = await Album.find({}).sort('-createdAt');
   res.status(200).json({ albums });
 };
 
