@@ -1,6 +1,15 @@
-import React from 'react';
+import React, { FC } from 'react';
+import { Trash2 } from 'lucide-react';
 
-export const ImageContainer = ({ albumData }) => {
+interface IImageContainer {
+  albumData: [{ _id: number; image: string; title: string }];
+  onDeleteHandler: (id: number) => void;
+}
+
+export const ImageContainer: FC<IImageContainer> = ({
+  albumData,
+  onDeleteHandler,
+}) => {
   const noDataStyle = 'justify-items-center content-center';
 
   // image alt attribute
@@ -34,12 +43,13 @@ export const ImageContainer = ({ albumData }) => {
                   alt={imageAlt(album.image)}
                   width={300}
                 />
-                <>
+                <div className='flex gap-2 pt-2'>
                   <h1 className='text-center'>{album.title}</h1>
-                  <button className='border border-solid rounded p-1'>
-                    Delete
-                  </button>
-                </>
+                  <Trash2
+                    onClick={() => onDeleteHandler(album._id)}
+                    className='cursor-pointer'
+                  />
+                </div>
               </div>
             ))}
           </>

@@ -52,6 +52,7 @@ function App() {
       // parse the stringified error to access the original error properties
       const errorResponse = JSON.parse(error.message);
       console.log('Error in POST request - ', errorResponse.msg); // 'msg' from server
+      alert(errorResponse.msg);
     }
   };
 
@@ -84,6 +85,32 @@ function App() {
     }
   };
 
+  // delete an image
+  const onDeleteHandler = async (id) => {
+    console.log('id to delete - ', id);
+    try {
+      const res = await fetch(API_URL + 'albums', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          id,
+        }),
+      });
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(JSON.stringify(errorData));
+      }
+      // refetch all albums
+      fetchAlbums();
+    } catch (error) {
+      const errorResponse = JSON.parse(error.message);
+      alert(errorResponse.msg);
+      console.log(error);
+    }
+  };
+
   return (
     <>
       <h1 className='text-6xl p-8 mb-4'>PICz 📸</h1>
@@ -94,7 +121,7 @@ function App() {
           onTitleChangeHandler={onTitleChangeHandler}
           title={title}
         />
-        <ImageContainer albumData={data} />
+        <ImageContainer albumData={data} onDeleteHandler={onDeleteHandler} />
       </div>
     </>
   );

@@ -1,3 +1,4 @@
+const { NotFoundError } = require('../errors');
 const Album = require('../models/Album');
 
 const createAlbum = async (req, res) => {
@@ -10,7 +11,19 @@ const getAllAlbums = async (req, res) => {
   res.status(200).json({ albums });
 };
 
+const deleteAlbum = async (req, res) => {
+  const { id: albumId } = req.body;
+  console.log('albumId - ', albumId);
+  const album = await Album.findByIdAndDelete({ _id: albumId });
+  if (!album) {
+    throw new NotFoundError(`No album with id ${albumId}`);
+  }
+
+  res.status(200).send();
+};
+
 module.exports = {
   createAlbum,
   getAllAlbums,
+  deleteAlbum,
 };
