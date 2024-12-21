@@ -5,7 +5,6 @@ import { API_URL } from './constants'; // todo: move to .env
 
 function App() {
   const [data, setData] = useState([]);
-  const [error, setError] = useState('');
   const [image, setImage] = useState('');
   const [title, setTitle] = useState('');
 
@@ -53,7 +52,6 @@ function App() {
       // parse the stringified error to access the original error properties
       const errorResponse = JSON.parse(error.message);
       console.log('Error in POST request - ', errorResponse.msg); // 'msg' from server
-      setError(errorResponse);
     }
   };
 
@@ -95,7 +93,6 @@ function App() {
           onImageChangeHandler={onImageChangeHandler}
           onTitleChangeHandler={onTitleChangeHandler}
           title={title}
-          errorMsg={error}
         />
         <ImageContainer albumData={data} />
       </div>

@@ -6,7 +6,6 @@ interface IForm {
   onImageChangeHandler: () => void;
   onTitleChangeHandler: () => void;
   title: string;
-  errorMsg: string;
 }
 
 export const Form: FC<IForm> = ({
@@ -14,7 +13,6 @@ export const Form: FC<IForm> = ({
   onImageChangeHandler,
   onTitleChangeHandler,
   title,
-  errorMsg,
 }) => {
   return (
     <>
@@ -42,7 +40,6 @@ export const Form: FC<IForm> = ({
             <input type='submit' />
           </label>
         </form>
-        {!!errorMsg && <span>{errorMsg}</span>}
       </section>
     </>
   );
