@@ -60,6 +60,12 @@ body {
   min-width: 300px;
 }
 
+@media only screen and (max-width: 768px) {
+  .imageContainer {
+    min-width: 90vw;
+  }
+}
+
 @media only screen and (max-width: 1279px) {
   .imageContainer {
     display: block;
