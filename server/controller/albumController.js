@@ -13,7 +13,6 @@ const getAllAlbums = async (req, res) => {
 
 const deleteAlbum = async (req, res) => {
   const { id: albumId } = req.body;
-  console.log('albumId - ', albumId);
   const album = await Album.findByIdAndDelete({ _id: albumId });
   if (!album) {
     throw new NotFoundError(`No album with id ${albumId}`);

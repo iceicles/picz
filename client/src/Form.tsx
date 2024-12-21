@@ -1,5 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
-import { API_URL } from './constants';
+import React, { FC } from 'react';
 
 interface IForm {
   onSubmitHandler: () => void;

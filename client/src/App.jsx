@@ -43,7 +43,6 @@ function App() {
         const errorData = await res.json(); // get the error response
         throw new Error(JSON.stringify(errorData)); // throw the error as a stringified object
       }
-
       const {
         image: { src },
       } = await res.json();
@@ -87,7 +86,6 @@ function App() {
 
   // delete an image
   const onDeleteHandler = async (id) => {
-    console.log('id to delete - ', id);
     try {
       const res = await fetch(API_URL + 'albums', {
         method: 'DELETE',
