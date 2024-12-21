@@ -36,7 +36,7 @@ export const Form: FC<IForm> = ({
             <input type='file' name='image' onChange={onImageChangeHandler} />
           </label>
           <label>
-            <input type='submit' />
+            <input type='submit' value='Upload' />
           </label>
         </form>
       </section>
