@@ -18,7 +18,7 @@ export const Form: FC<IForm> = ({
 }) => {
   return (
     <>
-      <section className='mr-24'>
+      <section className='lg:mr-24'>
         <form
           onSubmit={onSubmitHandler}
           className='flex flex-col gap-y-6 min-width-[300px]'
@@ -33,7 +33,7 @@ export const Form: FC<IForm> = ({
             />
           </label>
           <label htmlFor='image'>
-            <i className='text-red-400'>
+            <i className='text-red-400 py-2'>
               *Upload an image with size less than 1MB
             </i>
             <input type='file' name='image' onChange={onImageChangeHandler} />

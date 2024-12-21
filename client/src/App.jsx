@@ -13,9 +13,9 @@ function App() {
   const fetchAlbums = async () => {
     const res = await fetch(API_URL + 'albums');
     const data = await res.json();
-    setData(data.albums)
+    setData(data.albums);
   };
-  
+
   // gets all albums on component mount
   useEffect(() => {
     fetchAlbums();
@@ -69,28 +69,27 @@ function App() {
         },
         body: JSON.stringify({
           image,
-          title
+          title,
         }),
       });
 
       if (!res.ok) {
-        const errorData = await res.json()
-        throw new Error(JSON.stringify(errorData))
+        const errorData = await res.json();
+        throw new Error(JSON.stringify(errorData));
       }
       const data = await res.json();
-      fetchAlbums() // get all albums (including newly added image)
+      fetchAlbums(); // get all albums (including newly added image)
       setData([data.album]);
-      
     } catch (error) {
       const errorResponse = JSON.parse(error.message);
-      alert(errorResponse.msg)
+      alert(errorResponse.msg);
     }
   };
 
   return (
     <>
       <h1 className='text-6xl p-8 mb-4'>PICz 📸</h1>
-      <div className='flex items-center justify-center min-h-[80vh] p-8'>
+      <div className='flex flex-col items-center justify-center gap-[50px] min-h-[80vh] p-8 xl:flex-row'>
         <Form
           onSubmitHandler={onSubmitHandler}
           onImageChangeHandler={onImageChangeHandler}

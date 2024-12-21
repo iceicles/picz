@@ -3,8 +3,9 @@
 @tailwind utilities;
 
 :root {
-  --root-background-color: #000000;
+  --root-background-color: #3f3d3d;
   --black: #000000;
+  --white: #ffffff;
   --image-container-bg-color: #140122;
   --image-container-boxshadow-color: #130122;
   --lightblue: #3f87f4;
@@ -30,15 +31,56 @@ body {
   justify-items: center; */
 }
 
-.imageContainer {
-  background-color: var(--image-container-bg-color);
+.imageContainerNoImages {
+  border: 1px solid grey;
+  background-color: var(--black);
   border-radius: 5px;
-  box-shadow: 0 0 50px 10px var(--image-container-boxshadow-color);
+  padding: 30px;
+  overflow-y: auto;
+  max-height: 75vh;
+  max-width: 60vw;
+  width: 100%;
+  height: 80vh;
+  min-width: 300px;
+}
+
+.imageContainer {
+  border: 1px solid grey;
+  background-color: var(--black);
+  border-radius: 5px;
   padding: 30px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 30px;
-  overflow-y: scroll;
+  overflow-y: auto;
+  max-height: 75vh; /* set a maximum height to trigger scrolling */
+  max-width: 60vw;
+  width: 100%;
+  height: 80vh;
+  min-width: 300px;
+}
+
+@media only screen and (max-width: 1279px) {
+  .imageContainer {
+    display: block;
+  }
+}
+
+/* firefox specific scrollbar styling */
+.imageContainer {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.5);
+}
+
+/* hide the scrollbar when the container is empty */
+.imageContainer:empty {
+  overflow-y: hidden;
+}
+
+/* style the scrollbar to be more discreet */
+.imageContainer::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 10px;
 }
 
 form {
@@ -51,6 +93,7 @@ form {
 label {
   display: flex;
   flex-direction: column;
+  font-weight: 600;
 }
 
 input[type='submit'] {
@@ -61,11 +104,8 @@ input[type='submit'] {
   font-size: 1rem;
   font-weight: 700;
   cursor: pointer;
+  align-self: center;
 }
-
-/* div>img {
-  display: grid;
-} */
 
 img {
   border-radius: 5px;
