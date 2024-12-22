@@ -9,7 +9,7 @@ const apiUrlConfig = () => {
     API_URL = import.meta.env.VITE_API_URL;
     console.log('Development mode: API_URL set to', API_URL);
   } else {
-    API_URL = '/api/v1';
+    API_URL = '/api/v1/';
     console.log('Production mode: API_URL set to', API_URL);
   }
 };
