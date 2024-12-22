@@ -11,6 +11,7 @@ export const ImageContainer: FC<IImageContainer> = ({
   onDeleteHandler,
 }) => {
   const noDataStyle = 'justify-items-center content-center';
+  const SERVER_URL_TLD = import.meta.env.VITE_API_URL_TLD;
 
   // image alt attribute
   const imageAlt = (image) => {
@@ -39,9 +40,8 @@ export const ImageContainer: FC<IImageContainer> = ({
                 className='flex flex-col items-center justify-center mb-6 xl:mb-0'
               >
                 <img
-                  src={`http://localhost:4000${album.image}`}
+                  src={`${SERVER_URL_TLD + album.image}`}
                   alt={imageAlt(album.image)}
-                  width={300}
                 />
                 <div className='flex gap-2 pt-2'>
                   <h1 className='text-center'>{album.title}</h1>

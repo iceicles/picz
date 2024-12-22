@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
 import { Form } from './Form';
 import { ImageContainer } from './ImageContainer';
-import { API_URL } from './constants'; // todo: move to .env
 
 function App() {
   const [data, setData] = useState([]);
   const [image, setImage] = useState('');
   const [title, setTitle] = useState('');
+
+  const API_URL = import.meta.env.VITE_API_URL;
 
   // fetch albums
   const fetchAlbums = async () => {
