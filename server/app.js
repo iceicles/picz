@@ -57,3 +57,6 @@ const start = async () => {
 };
 
 start();
+
+// used by vercel during deployment
+module.exports = app;
