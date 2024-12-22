@@ -2,12 +2,23 @@ import { useState, useEffect } from 'react';
 import { Form } from './Form';
 import { ImageContainer } from './ImageContainer';
 
+let API_URL;
+
+const apiUrlConfig = () => {
+  if (import.meta.env.MODE === 'development') {
+    API_URL = import.meta.env.VITE_API_URL;
+    console.log('Development mode: API_URL set to', API_URL);
+  } else {
+    API_URL = '/api/v1';
+    console.log('Production mode: API_URL set to', API_URL);
+  }
+};
+apiUrlConfig();
+
 function App() {
   const [data, setData] = useState([]);
   const [image, setImage] = useState('');
   const [title, setTitle] = useState('');
-
-  const API_URL = import.meta.env.VITE_API_URL;
 
   // fetch albums
   const fetchAlbums = async () => {

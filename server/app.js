@@ -10,12 +10,15 @@ const fileUpload = require('express-fileupload');
 // database
 const connectDB = require('./db/connect');
 
-const cors = require('cors');
-const corsOptions = {
-  origin: process.env.CLIENT_URL, // frontend url
-};
-// cors
-app.use(cors(corsOptions));
+/* cors only needed for local dev */
+if (process.env.NODE_ENV === 'development') {
+  const cors = require('cors');
+  const corsOptions = {
+    origin: process.env.CLIENT_URL, // frontend url
+  };
+  // cors
+  app.use(cors(corsOptions));
+}
 
 // parsing json from req.body
 app.use(express.json());
