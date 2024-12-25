@@ -1,7 +1,9 @@
-// const CustomError = require('../errors');
+const CustomError = require('../errors');
 // const path = require('path');
+// const fs = require('fs');
 const cloudinary = require('cloudinary').v2;
-const fs = require('fs');
+const multer = require('multer');
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
 
 /* this will upload the images to the local server
     note: this increase server code size
@@ -48,35 +50,48 @@ const fs = require('fs');
 //     .json({ image: { src: `/uploads/${productImage.name}` } });
 // };
 
-/* This function uploads images to cloudinary */
+// set up cloudinary storage using multer-storage-cloudinary
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: 'picz', // specify cloudinary folder
+    allowedFormats: ['jpeg', 'png', 'jpg'], // allowed formats
+  },
+});
+
+// initialize multer with cloudinary storage
+const parser = multer({ storage: storage });
+
+// controller function for uploading the album image to cloudinary
 const uploadAlbumImageCloud = async (req, res) => {
-  // check if file exists
-  if (!req.files) {
-    throw new CustomError.BadRequestError('No File Uploaded');
-  }
-
-  // check image size
-  const productImage = req.files.image;
-  const maxSize = 1024 * 1024;
-  if (productImage.size > maxSize) {
-    throw new CustomError.BadRequestError(
-      'Please upload image smaller than 1MB'
-    );
-  }
-
-  // upload an image
-  const result = await cloudinary.uploader.upload(
-    req.files.image.tempFilePath,
-    {
-      use_filename: true,
-      folder: 'picz',
+  // call multer's `single('file')` middleware
+  await parser.single('image')(req, res, (err) => {
+    // check if file exists
+    if (!req.file) {
+      throw new CustomError.BadRequestError('No File Uploaded');
     }
-  );
 
-  // removing temp image file once we've successfully uploaded to cloudinary so we don't store them locally (in server) in /tmp folder
-  fs.unlinkSync(req.files.image.tempFilePath);
+    // check size (size can be set in .env)
+    const maxSize = 1024 * 1024;
+    if (req.file.size > maxSize) {
+      throw new CustomError.BadRequestError(
+        'Please upload image smaller than 1MB'
+      );
+    }
 
-  return res.status(200).json({ image: { src: result.secure_url } });
+    // check format
+    if (!req.file.mimetype.startsWith('image')) {
+      throw new CustomError.BadRequestError('Please Upload Image');
+    }
+
+    try {
+      // file URL available in `req.file.path` after upload to cloudinary
+      res.status(200).json({ image: { src: req.file.path } });
+    } catch (error) {
+      console.error('Error processing the file:', error);
+      return res.status(500).json({ error: 'Internal server error' });
+    }
+  });
 };
 
 module.exports = {
