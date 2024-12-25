@@ -50,6 +50,20 @@ const fs = require('fs');
 
 /* This function uploads images to cloudinary */
 const uploadAlbumImageCloud = async (req, res) => {
+  // check if file exists
+  if (!req.files) {
+    throw new CustomError.BadRequestError('No File Uploaded');
+  }
+
+  // check image size
+  const productImage = req.files.image;
+  const maxSize = 1024 * 1024;
+  if (productImage.size > maxSize) {
+    throw new CustomError.BadRequestError(
+      'Please upload image smaller than 1MB'
+    );
+  }
+
   // upload an image
   const result = await cloudinary.uploader.upload(
     req.files.image.tempFilePath,
@@ -58,8 +72,6 @@ const uploadAlbumImageCloud = async (req, res) => {
       folder: 'picz',
     }
   );
-
-  console.log('result - ', result);
 
   // removing temp image file once we've successfully uploaded to cloudinary so we don't store them locally (in server) in /tmp folder
   fs.unlinkSync(req.files.image.tempFilePath);
