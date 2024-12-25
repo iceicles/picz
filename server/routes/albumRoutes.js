@@ -6,9 +6,9 @@ const {
   getAllAlbums,
   deleteAlbum,
 } = require('../controller/albumController');
-const { uploadAlbumImageLocal } = require('../controller/uploadsController');
+const { uploadAlbumImageCloud } = require('../controller/uploadsController');
 
 router.route('/').post(createAlbum).get(getAllAlbums).delete(deleteAlbum);
-router.route('/uploads').post(uploadAlbumImageLocal);
+router.route('/uploads').post(uploadAlbumImageCloud);
 
 module.exports = router;

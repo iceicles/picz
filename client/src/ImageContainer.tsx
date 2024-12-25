@@ -6,6 +6,8 @@ interface IImageContainer {
   onDeleteHandler: (id: number) => void;
 }
 
+// TODO: add a loading state - when we refresh and there's images, the text 'nothing for now'
+// briefly shows.. need to make sure there's a loading state when there's no data yet
 export const ImageContainer: FC<IImageContainer> = ({
   albumData,
   onDeleteHandler,
@@ -39,10 +41,7 @@ export const ImageContainer: FC<IImageContainer> = ({
                 key={album._id}
                 className='flex flex-col items-center justify-center mb-6 xl:mb-0'
               >
-                <img
-                  src={`${SERVER_URL_TLD + album.image}`}
-                  alt={imageAlt(album.image)}
-                />
+                <img src={album.image} alt={imageAlt(album.image)} />
                 <div className='flex gap-2 pt-2'>
                   <h1 className='text-center'>{album.title}</h1>
                   <Trash2

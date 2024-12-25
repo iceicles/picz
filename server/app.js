@@ -7,6 +7,14 @@ const app = express();
 
 const fileUpload = require('express-fileupload');
 
+// store images in cloud - cloudinary
+const cloudinary = require('cloudinary').v2;
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUD_API_KEY,
+  api_secret: process.env.CLOUD_API_SECRET,
+});
+
 // database
 const connectDB = require('./db/connect');
 
@@ -23,8 +31,12 @@ app.use(express.json());
 // access static assets
 app.use(express.static('./public'));
 
-// for uploading files to server then later cloud (cloudinary)
-app.use(fileUpload());
+// creating tempdir path with fileupload so cloudinary can use that path for uploading images - bypass all that code in uploadProductImageLocal
+app.use(
+  fileUpload({
+    useTempFiles: true,
+  })
+);
 
 // album router
 const albumRouter = require('./routes/albumRoutes');
