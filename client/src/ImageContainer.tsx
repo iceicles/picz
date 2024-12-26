@@ -18,10 +18,10 @@ export const ImageContainer: FC<IImageContainer> = ({
   // const SERVER_URL_TLD = import.meta.env.VITE_API_URL_TLD;
 
   // image alt attribute
-  const imageAlt = (image) => {
+  /* const imageAlt = (image) => {
     const arr = image.split('/');
     return arr[arr.length - 1];
-  };
+  }; */
 
   if (isLoading) {
     return <div className={`${noDataStyle} text-2xl`}>Loading...</div>;
@@ -43,7 +43,7 @@ export const ImageContainer: FC<IImageContainer> = ({
                 key={album._id}
                 className='flex flex-col items-center justify-center mb-6 xl:mb-0'
               >
-                <img src={album.image} alt={imageAlt(album.image)} />
+                <img src={album.image} alt='album image' width={350} />
                 <div className='flex gap-2 pt-2'>
                   <h1 className='text-center'>{album.title}</h1>
                   <Trash2

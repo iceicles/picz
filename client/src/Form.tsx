@@ -15,7 +15,7 @@ export const Form: FC<IForm> = ({
 }) => {
   return (
     <>
-      <section className='lg:mr-24 w-[350px]'>
+      <section className='xl:mr-24 w-[350px]'>
         <form
           onSubmit={onSubmitHandler}
           className='flex flex-col gap-y-6 min-width-[300px]'
