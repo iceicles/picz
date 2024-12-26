@@ -4,6 +4,7 @@ import { Trash2 } from 'lucide-react';
 interface IImageContainer {
   albumData: [{ _id: number; image: string; title: string }];
   onDeleteHandler: (id: number) => void;
+  isLoading: boolean;
 }
 
 // TODO: add a loading state - when we refresh and there's images, the text 'nothing for now'
@@ -11,15 +12,20 @@ interface IImageContainer {
 export const ImageContainer: FC<IImageContainer> = ({
   albumData,
   onDeleteHandler,
+  isLoading,
 }) => {
   const noDataStyle = 'justify-items-center content-center';
-  const SERVER_URL_TLD = import.meta.env.VITE_API_URL_TLD;
+  // const SERVER_URL_TLD = import.meta.env.VITE_API_URL_TLD;
 
   // image alt attribute
   const imageAlt = (image) => {
     const arr = image.split('/');
     return arr[arr.length - 1];
   };
+
+  if (isLoading) {
+    return <div className={`${noDataStyle} text-2xl`}>Loading...</div>;
+  }
 
   return (
     <>
@@ -30,11 +36,7 @@ export const ImageContainer: FC<IImageContainer> = ({
             : 'imageContainer'
         }`}
       >
-        {albumData && !albumData.length ? (
-          <div className={`${noDataStyle} text-2xl`}>
-            Nothing for now. Start by uploading an image 😇{' '}
-          </div>
-        ) : (
+        {albumData && albumData.length ? (
           <>
             {albumData.map((album) => (
               <div
@@ -52,6 +54,10 @@ export const ImageContainer: FC<IImageContainer> = ({
               </div>
             ))}
           </>
+        ) : (
+          <div className={`${noDataStyle} text-2xl`}>
+            <i>Currently empty. Start by uploading an image</i>
+          </div>
         )}
       </section>
     </>

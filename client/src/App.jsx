@@ -8,12 +8,15 @@ function App() {
   const [data, setData] = useState([]);
   const [image, setImage] = useState('');
   const [title, setTitle] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
 
   // fetch albums
   const fetchAlbums = async () => {
+    setIsLoading(true);
     const res = await fetch(API_URL + 'albums');
     const data = await res.json();
     setData(data.albums);
+    setIsLoading(false);
   };
 
   // gets all albums on component mount
@@ -120,7 +123,7 @@ function App() {
           onTitleChangeHandler={onTitleChangeHandler}
           title={title}
         />
-        <ImageContainer albumData={data} onDeleteHandler={onDeleteHandler} />
+        <ImageContainer albumData={data} onDeleteHandler={onDeleteHandler} isLoading={isLoading}/>
       </div>
     </>
   );
