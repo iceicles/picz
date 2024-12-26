@@ -23,6 +23,20 @@ export const ImageContainer: FC<IImageContainer> = ({
     return arr[arr.length - 1];
   }; */
 
+  if (isLoading) {
+    return (
+      <section
+        className={` ${
+          !albumData.length
+            ? `imageContainerNoImages ${noDataStyle}`
+            : 'imageContainer'
+        }`}
+      >
+        <div className={`${noDataStyle} text-2xl`}>Loading...</div>
+      </section>
+    );
+  }
+
   return (
     <>
       <section
@@ -32,9 +46,6 @@ export const ImageContainer: FC<IImageContainer> = ({
             : 'imageContainer'
         }`}
       >
-        {isLoading && (
-          <div className={`${noDataStyle} text-2xl`}>Loading...</div>
-        )}
         {albumData && albumData.length ? (
           <>
             {albumData.map((album) => (
