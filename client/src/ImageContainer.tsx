@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
-import { Trash2 } from 'lucide-react';
-
+import { Trash2, LoaderCircle } from 'lucide-react';
 interface IImageContainer {
   albumData: [{ _id: number; image: string; title: string }];
   onDeleteHandler: (id: number) => void;
@@ -32,7 +31,9 @@ export const ImageContainer: FC<IImageContainer> = ({
             : 'imageContainer'
         }`}
       >
-        <div className={`${noDataStyle} text-2xl`}>Loading...</div>
+        <div className={`${noDataStyle} text-2xl`}>
+          <LoaderCircle className='animate-spin text-blue-500 w-[50px] h-[50px] md:w-[75px] md:h-[75px]' />
+        </div>
       </section>
     );
   }
