@@ -56,6 +56,7 @@ function App() {
       const errorResponse = JSON.parse(error.message);
       console.log('Error in POST request - ', errorResponse.msg); // 'msg' from server
       alert(errorResponse.msg);
+      e.target.value = ''
     }
   };
 

@@ -63,25 +63,30 @@ const storage = new CloudinaryStorage({
 const parser = multer({ storage: storage });
 
 // controller function for uploading the album image to cloudinary
-const uploadAlbumImageCloud = async (req, res) => {
+const uploadAlbumImageCloud = async (req, res, next) => {
   // call multer's `single('file')` middleware
   await parser.single('image')(req, res, (err) => {
+    if (err) {
+      // if multer reports an error (e.g., unsupported zip file), handle it
+      return next(err); // Pass the error to Express's default error handler
+    }
+
     // check if file exists
     if (!req.file) {
-      throw new CustomError.BadRequestError('No File Uploaded');
+      return res.status(400).json({ msg: 'No File Uploaded' });
     }
 
     // check size (size can be set in .env)
-    const maxSize = 1024 * 1024;
+    const maxSize = 1024 * 1024; // 1MB
     if (req.file.size > maxSize) {
-      throw new CustomError.BadRequestError(
-        'Please upload image smaller than 1MB'
-      );
+      return res
+        .status(400)
+        .json({ msg: 'Please upload an image smaller than 1MB' });
     }
 
     // check format
     if (!req.file.mimetype.startsWith('image')) {
-      throw new CustomError.BadRequestError('Please Upload Image');
+      return res.status(400).json({ msg: 'Please upload a valid image' });
     }
 
     try {
@@ -89,7 +94,7 @@ const uploadAlbumImageCloud = async (req, res) => {
       res.status(200).json({ image: { src: req.file.path } });
     } catch (error) {
       console.error('Error processing the file:', error);
-      return res.status(500).json({ error: 'Internal server error' });
+      return res.status(500).json({ msg: 'Internal server error' });
     }
   });
 };

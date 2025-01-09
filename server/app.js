@@ -36,6 +36,7 @@ app.use('/api/v1/albums', albumRouter);
 // error handlers
 const notFoundMiddleware = require('./middleware/not-found');
 const errorHandlerMiddleware = require('./middleware/error-handler');
+const multerErrorMiddleware = require('./middleware/multer-error');
 
 app.get('/', (req, res) => {
   res.send('<h1>Picz server</h1>');
@@ -44,6 +45,7 @@ app.get('/', (req, res) => {
 // middleware
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
+// app.use(multerErrorMiddleware);
 
 const port = process.env.PORT || 4000;
 
